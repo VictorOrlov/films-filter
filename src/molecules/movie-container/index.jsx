@@ -12,21 +12,21 @@ class MovieContainer extends Component {
   }
 
   onClickStar = () => {
-    const { movieTitle } = this.props;
+    const { movieTitle, tags } = this.props;
     const { isLove } = this.state;
     this.setState(prev =>({
       isLove: !prev.isLove
     }));
     // Добавляем и удаляем id фото в store
     if(!isLove){
-      return this.props.onAddFavorit(movieTitle);
+      return this.props.onAddFavorit(movieTitle, tags);
     } return this.props.onDeleteFavorit(movieTitle);
   };
   
   // Сохраняет лайк после перезагрузки
   func1 = () => {
     const { movieTitle } = this.props;
-    if(this.props.favorits.some(item => item.movieTitle === movieTitle)){
+    if(this.props.favorits.some(item => item.title === movieTitle)){
       this.setState({isLove: true});
     }
   }
@@ -66,9 +66,10 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  onAddFavorit: (movieTitle) => {
+  onAddFavorit: (movieTitle, tags) => {
     const payload = {
-      movieTitle: movieTitle
+      title: movieTitle,
+      tags: tags
     };
     dispatch({ type: 'ADD_FAVORIT', payload });
   },

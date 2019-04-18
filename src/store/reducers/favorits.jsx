@@ -9,7 +9,7 @@ const favorits = (state = initialState, action) => {
       ];
     case 'DELETE_FAVORIT':
     return [
-      ...state.filter(favorit => favorit.movieTitle !== action.payload)
+      ...state.filter(favorit => favorit.title !== action.payload)
     ];
     default: return state;
   }

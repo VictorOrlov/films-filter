@@ -37,7 +37,7 @@ class HomePage extends Component {
     ))
     return(
       <div>
-        <h1>HomePage</h1>
+        <h1>Фильмы : </h1>
         <InputSearch updateData={this.updateData.bind(this)} />
         <Card style={{ width: '90%', margin: '0 auto' }}>
           <ListGroup variant="flush">
