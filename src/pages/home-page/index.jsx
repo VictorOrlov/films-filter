@@ -9,6 +9,7 @@ class HomePage extends Component {
 
   state = {
     nameFilm: '',
+    countFilms: 10,
   }
 
   getFovoritsInStorage(){
@@ -16,12 +17,18 @@ class HomePage extends Component {
   localStorage.setItem("myMarkedFilm", favorits);
 }
 
-  updateData(value){
+  updateData(value){ // для бумеранга с поисковиком
     this.setState({nameFilm: value});
   }
 
+  handleShowMore(){
+    this.setState(prevState => ({
+      countFilms: prevState.countFilms + 10,
+    }))
+  }
+
   render(){
-    const { nameFilm } = this.state;
+    const { nameFilm, countFilms } = this.state;
     console.log(nameFilm);
     this.getFovoritsInStorage();
     const filterFilm = () =>{
@@ -29,12 +36,15 @@ class HomePage extends Component {
         return films.filter(item => item.title === nameFilm)
       } return films;
     }
-    const renderMovieContainers = filterFilm().map(item =>(
+    //ещё фильтр
+    
+    const renderMovieContainers = filterFilm().slice(0, countFilms).map(item =>(
       <MovieContainer
         key={item.title} 
         movieTitle={item.title}
         tags={item.tags} />
     ))
+    console.log(filterFilm().length);
     return(
       <div>
         <h1>Фильмы : </h1>
@@ -44,6 +54,9 @@ class HomePage extends Component {
             {renderMovieContainers}
           </ListGroup>
         </Card>
+        {filterFilm().length >=11 ?
+        <button onClick={this.handleShowMore.bind(this)}>Показать еще</button> :
+        null}
       </div> 
     );
   }
