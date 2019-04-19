@@ -1,0 +1,8 @@
+.check{
+  margin: 30px 5px;
+  padding: 0 5px;
+  background-color: rgba(34, 136, 252, 0.473);
+  box-shadow: 0 0 5px rgb(34, 136, 252);
+  color: rgb(245, 241, 28);
+  text-shadow: 0 0 3px rgb(245, 241, 28);
+}

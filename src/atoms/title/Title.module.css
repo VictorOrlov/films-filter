@@ -1,0 +1,6 @@
+.title{
+  animation: color-change 3s infinite;
+  color: yellow;
+  text-shadow: 0 0 5px yellow;
+  padding: 10px 30px;
+}

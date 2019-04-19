@@ -1,6 +1,7 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
+import s from './TagFiltering.module.css';
 import tags from '../../atoms/json-files/tags';
-import { Form } from 'react-bootstrap';
+import { Form, Row, Col } from 'react-bootstrap';
 
 class TagFiltering extends Component {
 
@@ -33,14 +34,15 @@ class TagFiltering extends Component {
         id={`inline-${item}`} />
     ))
     return(
-      <Fragment>
-        <Form>
-          <div>
-            {renderCheck}
-          </div>
-        </Form>
-        {/* <button onClick={}>фильтровать по жанрам</button> */}
-      </Fragment>
+      <Row className="m-0 justify-content-center">
+        <Col sm={12} md={10} className={s.check}>
+          <Form>
+            <div>
+              {renderCheck}
+            </div>
+          </Form>
+        </Col>
+      </Row>
     )
   }
 }

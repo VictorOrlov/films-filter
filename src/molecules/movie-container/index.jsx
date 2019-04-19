@@ -44,13 +44,17 @@ class MovieContainer extends Component {
       </span>
     ))
     return(
-      <ListGroup.Item key={key}>
+      <ListGroup.Item 
+        key={key}
+        className={s.listItem}
+        >
         <Row>
-          <Col md={10}>
+          <Col sm={12} md={10} className={s.nameFilm}>
             <h5>{movieTitle}</h5>
-            <div>Теги: {renderTags}</div>
+            
+            <div><span>Теги: </span>{renderTags}</div>
           </Col>
-          <Col md={2} style={{borderLeft: '1px solid silver'}}>
+          <Col sm={12} md={2} className={s.starFilm}>
             <div className={s.star} onClick={this.onClickStar} >
               <img src={isLove?star:nostar} alt=""/>
             </div>

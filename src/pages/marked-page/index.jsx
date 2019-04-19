@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import s from './MarkedPage.module.css';
 import { connect } from 'react-redux';
 import { Card, ListGroup } from 'react-bootstrap';
+import Title from '../../atoms/title';
 import films from '../../atoms/json-files/films';
 import MovieContainer from '../../molecules/movie-container';
 
@@ -28,9 +30,9 @@ class MarkedPage extends Component {
     ));
     console.log(filterFilm);
     return(
-      <div>
-        <h1>Закладки : </h1>
-        <Card style={{ width: '90%', margin: '0 auto' }}>
+      <div style={{minHeight: '100%'}}>
+      <Title title="Закладки :" />
+        <Card className={s.card}>
           <ListGroup variant="flush">
             {renderMovieContainers}
           </ListGroup>

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import s from './HomePage.module.css';
 import { connect } from 'react-redux';
-import { Card, ListGroup } from 'react-bootstrap';
+import Title from '../../atoms/title';
+import { Card, ListGroup, Button } from 'react-bootstrap';
 import films from '../../atoms/json-files/films';
 import InputSearch from '../../molecules/input-search';
 import TagFiltering from '../../molecules/tag-filtering';
@@ -59,18 +61,26 @@ class HomePage extends Component {
         tags={item.tags} />
     ))
     return(
-      <div>
-        <h1>Фильмы : </h1>
+      <div className={s.wrapper}>
+        <Title title="Фильмы :" />
         <InputSearch updateData={this.updateNameData.bind(this)} />
         <TagFiltering updateData={this.updateTagsData.bind(this)} />
-        <Card style={{ width: '90%', margin: '0 auto' }}>
+        <Card className={s.card}>
           <ListGroup variant="flush">
             {renderMovieContainers}
           </ListGroup>
         </Card>
+        <div className={s.divButton}>
         {filterTags().length >=11 ?
-        <button onClick={this.handleShowMore.bind(this)}>Показать еще</button> :
-        null}
+          <Button 
+            variant="outline-primary" 
+            onClick={this.handleShowMore.bind(this)}
+            >
+            Показать еще
+          </Button> :
+          null}
+        </div>
+        
       </div> 
     );
   }

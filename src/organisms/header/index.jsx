@@ -9,7 +9,8 @@ const Header = () => (
     bg="dark" 
     variant="dark" 
     fixed="top" 
-    expand="md">
+    expand="md"
+    className={s.header}>
   
     <Navbar.Brand href="#home">
       <img
