@@ -3,12 +3,14 @@ import { connect } from 'react-redux';
 import { Card, ListGroup } from 'react-bootstrap';
 import films from '../../atoms/json-files/films';
 import InputSearch from '../../molecules/input-search';
+import TagFiltering from '../../molecules/tag-filtering';
 import MovieContainer from '../../molecules/movie-container';
 
 class HomePage extends Component {
 
   state = {
     nameFilm: '',
+    dataTags: [],
     countFilms: 10,
   }
 
@@ -17,8 +19,12 @@ class HomePage extends Component {
   localStorage.setItem("myMarkedFilm", favorits);
 }
 
-  updateData(value){ // для бумеранга с поисковиком
+  updateNameData(value){ // для бумеранга с поисковиком
     this.setState({nameFilm: value});
+  }
+
+  updateTagsData(value){ // для бумеранга с чекбоксами
+    this.setState({dataTags: value});
   }
 
   handleShowMore(){
@@ -28,8 +34,7 @@ class HomePage extends Component {
   }
 
   render(){
-    const { nameFilm, countFilms } = this.state;
-    console.log(nameFilm);
+    const { nameFilm, countFilms, dataTags } = this.state;
     this.getFovoritsInStorage();
     const filterFilm = () =>{
       if(nameFilm !== ''){
@@ -37,24 +42,33 @@ class HomePage extends Component {
       } return films;
     }
     //ещё фильтр
+    const filterTags = () => {
+      if(dataTags.length !== 0){
+        return filterFilm().filter(item =>
+          dataTags.every(tag =>
+            item.tags.some(v => v === tag)
+            )
+          );
+      } return filterFilm();
+    }
     
-    const renderMovieContainers = filterFilm().slice(0, countFilms).map(item =>(
+    const renderMovieContainers = filterTags().slice(0, countFilms).map(item =>(
       <MovieContainer
         key={item.title} 
         movieTitle={item.title}
         tags={item.tags} />
     ))
-    console.log(filterFilm().length);
     return(
       <div>
         <h1>Фильмы : </h1>
-        <InputSearch updateData={this.updateData.bind(this)} />
+        <InputSearch updateData={this.updateNameData.bind(this)} />
+        <TagFiltering updateData={this.updateTagsData.bind(this)} />
         <Card style={{ width: '90%', margin: '0 auto' }}>
           <ListGroup variant="flush">
             {renderMovieContainers}
           </ListGroup>
         </Card>
-        {filterFilm().length >=11 ?
+        {filterTags().length >=11 ?
         <button onClick={this.handleShowMore.bind(this)}>Показать еще</button> :
         null}
       </div> 
